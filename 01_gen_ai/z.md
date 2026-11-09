@@ -24,3 +24,18 @@ localhost:3000/api/auth/register
 ```
 localhost:3000/api/auth/login
 ```
+
+### 3. logoutUserController()
+- get token from req.cookies.token
+- clearCookies
+```
+localhost:3000/api/auth/logout
+```
+
+## Middleware: (authUser)
+- get token from cookies
+- verify token
+
+### 4. getMeController()
+- get the current logged in user details
+

@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import blacklistModel from "../models/blacklist.model.js";
 
 
 // post: /api/auth/register
@@ -95,6 +96,38 @@ export const loginUserController = async (req, res) => {
 
     res.status(200).json({
         message: "User logged in successfully",
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }
+    })
+};
+
+
+// post: /api/auth/logout
+export const logoutUserController = async (req, res) => {
+
+    // get token first to blacklist:
+    const token = req.cookies.token;
+    if (token) {
+        await blacklistModel.create({ token })
+    }
+
+    res.clearCookie("token")
+
+    res.status(200).json({
+        message: "User logged out successfully"
+    })
+};
+
+
+// post: /api/auth/get-me (get the current logged in user details)
+export const getMeController = async (req, res) => {
+    const user = await userModel.findById(req.user.id);
+    
+    res.status(200).json({
+        message: "User details fetched successfully",
         user: {
             id: user._id,
             username: user.username,
