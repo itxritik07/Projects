@@ -1,9 +1,9 @@
-## MongoDb Connection:
+# MongoDb Connection:
 - email: alphagem47@gmail.com
 - Project: Project-gen-ai
 
 
-## Authentication:
+# Authentication:
 ###  1. registerUserController() 
 - get username, email, password from req.body
 - Check: if user already exists
@@ -32,10 +32,36 @@ localhost:3000/api/auth/login
 localhost:3000/api/auth/logout
 ```
 
-## Middleware: (authUser)
+# Middleware: (authUser)
 - get token from cookies
 - verify token
 
 ### 4. getMeController()
 - get the current logged in user details
 
+
+# Differentiate Frontend & Backend 
+- Backend (Node, Express)
+- Frontend (React + Vite)
+
+## Using SCSS instead of CSS
+- style.scss
+- using new package for this (npm i sass), with the help of this we can use this file in main.jsx
+
+# 4 Layers Architecture
+```
+UI
+- component
+- pages
+
+Hook: for managing state and API layers
+- hooks
+
+State: data store
+- auth.context.jsx
+- ai.context.jsx
+
+API: for communication with backend
+- services
+- auth.api.js
+````
