@@ -1,10 +1,11 @@
-# MongoDb Connection:
+# Backend
+### MongoDb Connection:
 - email: alphagem47@gmail.com
 - Project: Project-gen-ai
 
 
-# Authentication:
-###  1. registerUserController() 
+### Authentication:
+1. registerUserController() 
 - get username, email, password from req.body
 - Check: if user already exists
 - bcryptjs: hash password
@@ -15,7 +16,7 @@
 localhost:3000/api/auth/register
 ```
 
-###  2. loginUserController() 
+2. loginUserController() 
 - get email, password from req.body
 - Check: if user already exists with this email
 - compare password
@@ -25,43 +26,54 @@ localhost:3000/api/auth/register
 localhost:3000/api/auth/login
 ```
 
-### 3. logoutUserController()
+3. logoutUserController()
 - get token from req.cookies.token
 - clearCookies
 ```
 localhost:3000/api/auth/logout
 ```
 
-# Middleware: (authUser)
+### Middleware: 
+- token verification for authUser
 - get token from cookies
 - verify token
 
-### 4. getMeController()
+4. getMeController()
 - get the current logged in user details
+
 
 
 # Differentiate Frontend & Backend 
 - Backend (Node, Express)
 - Frontend (React + Vite)
 
-## Using SCSS instead of CSS
-- style.scss
-- using new package for this (npm i sass), with the help of this we can use this file in main.jsx
 
-# 4 Layers Architecture
-```
-UI
+
+### 4 Layers Architecture in Frontend:
+
+1. UI: designing part
 - component
 - pages
 
-Hook: for managing state and API layers
-- hooks
+2. API: for communication with backend
+- services
+- auth.api.js
 
-State: data store
+3. State: data store
 - auth.context.jsx
 - ai.context.jsx
 
-API: for communication with backend
-- services
-- auth.api.js
-````
+4. Hook: for managing state and API layers
+- hooks
+
+------------------------
+
+### UI includes navigation (routes)
+- login page
+- register page
+
+### Services
+- auth API's - (interact frontend with backend)
+
+### Context
+- AuthContext
