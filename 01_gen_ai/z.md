@@ -74,6 +74,7 @@ localhost:3000/api/auth/logout
 
 ### Services
 - auth API's - (interact frontend with backend)
+- using base URL for shorten code
 
 ### Context
 - AuthContext

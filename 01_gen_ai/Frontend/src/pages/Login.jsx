@@ -1,12 +1,28 @@
+import "../App.css";
 import { Link } from "react-router";
+import { useAuth } from "../hooks/useAuth.js"
+import { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { loading, handleLogin } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    handleLogin({ email, password });
   };
 
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gray-100">
+        <h1 className="text-2xl font-semibold text-blue-600 animate-pulse">
+          Loading...
+        </h1>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -30,6 +46,7 @@ const Login = () => {
               id="email"
               name="email"
               placeholder="Enter email address"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -48,6 +65,7 @@ const Login = () => {
               id="password"
               name="password"
               placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -71,7 +89,7 @@ const Login = () => {
             Register
           </Link>
         </p>
-        
+
       </div>
     </main>
   )
