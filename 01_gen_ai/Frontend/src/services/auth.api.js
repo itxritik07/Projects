@@ -7,13 +7,13 @@ const api = axios.create({
 });
 
 // registerUserController()
-export const register = async ({username, email, password}) => {
+export const register = async ({ username, email, password }) => {
     try {
         const response = await api.post("/api/auth/register", {
             username, email, password
         });
 
-        return response.data;
+        return response.data
     } catch (error) {
         console.log(error)
     }
@@ -21,13 +21,13 @@ export const register = async ({username, email, password}) => {
 
 
 // loginUserController()
-export const login = async ({email, password}) => {
+export const login = async ({ email, password }) => {
     try {
         const response = await api.post("/api/auth/login", {
             email, password
         });
 
-        return response.data;
+        return response.data
     } catch (error) {
         console.log(error)
     }
@@ -41,7 +41,7 @@ export const logout = async () => {
 
         return response.data;
     } catch (error) {
-        console.log(error)
+        
     }
 };
 
@@ -52,7 +52,7 @@ export const getMe = async () => {
         const response = await api.get("/api/auth/get-me");
 
         return response.data;
-    } 
+    }
     catch (error) {
         console.log(error)
     }

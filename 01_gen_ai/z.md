@@ -47,10 +47,9 @@ localhost:3000/api/auth/logout
 - Backend (Node, Express)
 - Frontend (React + Vite)
 
-
+----------------------
 
 ### 4 Layers Architecture in Frontend:
-
 1. UI: designing part
 - component
 - pages
@@ -78,3 +77,27 @@ localhost:3000/api/auth/logout
 
 ### Context
 - AuthContext
+
+### Hooks
+- useAuth.js - (for managing services and context layer)
+- handleRegister()
+- handleLogin()
+- handleLogout()
+- getAndSetUser as getMe()
+
+### cors installation in Backend
+- **Note:** backend and frontend origin should be same(localhost:5173)
+
+### 2 way binding
+- username, email, password
+
+### Protected Route
+- protect homepage using protected routes
+- without login or register user can't see homepage, redirects to login page
+- it takes hooks(useAuth.js) & navigate
+
+
+### Note:
+- if we login ⇢ homepage
+- then reload it redirects to login page again
+- setLoading should be (true)

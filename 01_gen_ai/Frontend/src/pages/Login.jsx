@@ -8,7 +8,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const { loading, handleLogin } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -83,8 +82,8 @@ const Login = () => {
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-6">
-          Don't have an account?{" "}
           {/* {" "} is used in JSX to add a single space between two elements or text expressions. */}
+          Don't have an account?{" "}
           <Link
             className="font-semibold text-blue-600 hover:text-blue-700 hover:underline transition-colors duration-200"
             to="/register"
