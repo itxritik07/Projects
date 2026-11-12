@@ -1,12 +1,32 @@
-import { useNavigate, Link } from "react-router"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router";
+import { useAuth } from "../hooks/useAuth.js";
+
+
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const { loading, handleRegister } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    await handleRegister({ username, email, password });
+    navigate("/");
   };
 
-  const navigate = useNavigate();
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gray-100">
+        <h1 className="text-2xl font-semibold text-blue-600 animate-pulse">
+          Loading...
+        </h1>
+      </main>
+    );
+  }
+
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -30,6 +50,7 @@ const Register = () => {
               id="username"
               name="username"
               placeholder="Enter username"
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -48,6 +69,7 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="Enter email address"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -66,6 +88,7 @@ const Register = () => {
               id="password"
               name="password"
               placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
