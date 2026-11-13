@@ -7,7 +7,6 @@ const ai = new GoogleGenAI({
 });
 
 
-
 // This schema is for ai
 const interviewReportSchema = z.object({
     matchScore: z.number().describe("A score between 0 and 100 indicating how well the candidate's profile matches the job describe"),
@@ -56,8 +55,8 @@ export const generateInterviewReport = async ({ resume, selfDescription, jobDesc
         Job Description: ${jobDescription}
     `
     const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
-        contents: "",
+        model: "gemini-3.5-flash-lite",
+        contents: prompt,
         config: {
             responseMimeType: "application/json",
             responseSchema: z.toJSONSchema(interviewReportSchema)
@@ -65,5 +64,6 @@ export const generateInterviewReport = async ({ resume, selfDescription, jobDesc
     });
 
     // console.log(JSON.parse(response.text))
-    console.log(response.text)
+    // console.log(response.text)
+    return JSON.parse(response.text)
 };

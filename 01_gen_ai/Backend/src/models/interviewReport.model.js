@@ -44,16 +44,16 @@ const skillGapSchema = new mongoose.Schema({
         enum: ["low", "medium", "high"],
         required: [true, "Severity is required"]
     }
-},{
+}, {
     _id: false
 });
 
 const preparationPlanSchema = new mongoose.Schema({
-    day:{
+    day: {
         type: Number,
         required: [true, "Day is required"]
     },
-    focus:{
+    focus: {
         type: String,
         required: [true, "Focus is required"]
     },
@@ -83,7 +83,7 @@ const interviewReportSchema = new mongoose.Schema({
     behavioralQuestions: [behavioralQuestionSchema],
     skillGaps: [skillGapSchema],
     preparationPlan: [preparationPlanSchema]
-},{
+}, {
     timestamps: true
 });
 
