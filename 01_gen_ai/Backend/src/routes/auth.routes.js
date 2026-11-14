@@ -9,7 +9,9 @@ router.post("/register", registerUserController);
 router.post("/login", loginUserController);
 router.post("/logout", logoutUserController);
 
-// get:
+// get: /api/auth
 router.get("/get-me", authUser, getMeController);
+
+
 
 export default router;
