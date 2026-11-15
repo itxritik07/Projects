@@ -3,13 +3,10 @@ import Login from "../pages/Login.jsx"
 import Register from "../pages/Register.jsx"
 import Home from "../pages/Home.jsx";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
+import Interview from "../pages/Interview.jsx";
 
 
 export const AppRoutes = createBrowserRouter([
-    {
-        path: "/",
-        element: <ProtectedRoutes><Home /></ProtectedRoutes>
-    },
     {
         path: "/login",
         element: <Login />
@@ -18,4 +15,12 @@ export const AppRoutes = createBrowserRouter([
         path: "/register",
         element: <Register />
     },
+    {
+        path: "/",
+        element: <ProtectedRoutes><Home /></ProtectedRoutes>
+    },
+    {
+        path: "/interview/:interviewId",
+        element: <ProtectedRoutes><Interview /></ProtectedRoutes>
+    }
 ]);
