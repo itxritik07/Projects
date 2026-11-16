@@ -6,9 +6,32 @@ const api = axios.create({
     withCredentials: true
 });
 
-export const generateInterviewReport = async ({ selfDescription, jobDescription, resumeFile }) => {
+
+export const generateInterviewReport = async ({ jobDescription, selfDescription, resumeFile }) => {
     const formData = new FormData()
-    formData.append("selfDescription", selfDescription)
     formData.append("jobDescription", jobDescription)
+    formData.append("selfDescription", selfDescription)
     formData.append("resume", resumeFile)
+
+    const response = await api.post("/api/interview", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    });
+
+    return response.data
+};
+
+
+export const getInterviewReportId = async ({ interviewId }) => {
+    const response = await api.post(`/api/interview/report/${interviewId}`);
+
+    return response.data;
+};
+
+
+export const getAllInterviewReports = async () => {
+    const response = await api.get("/api/interview");
+
+    return response.data;
 };

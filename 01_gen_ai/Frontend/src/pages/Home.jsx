@@ -1,6 +1,22 @@
-import React from 'react'
+import { useRef, useState } from 'react';
+import { useInterview } from '../hooks/useInterview.js';
+import { useNavigate } from 'react-router';
+
 
 const Home = () => {
+  const { loading, generateReport } = useInterview();
+  const [jobDescription, setJobDescription] = useState("");
+  const [selfDescription, setSelfDescription] = useState("");
+  const resumeInputRef = useRef();
+  const navigate = useNavigate();
+
+  const handleGenerateReport = async () => {
+    const resumeFile = resumeInputRef.current.files[0]
+    const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+    navigate(`/interview/${data._id}`)
+  };
+
+
   return (
     <main className="min-h-screen bg-gray-100 px-4 py-3 md:px-6 md:py-4">
       <div className="max-w-7xl mx-auto">
@@ -36,12 +52,14 @@ const Home = () => {
                 </span>
               </div>
 
+              {/* Job Description */}
               <textarea
                 className="w-full h-[min(42vh,320px)] min-h-55 p-3 text-sm border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
                 name="jobDescription"
                 id="jobDescription"
                 maxLength={5000}
                 placeholder="Paste the full job description here..."
+                onChange={(e) => setJobDescription(e.target.value)}
               />
 
               <p className="text-right text-xs text-gray-400 mt-1">
@@ -85,11 +103,13 @@ const Home = () => {
                   </span>
 
                   <input
+                    className="hidden"
                     type="file"
                     name="resume"
                     id="resume"
-                    accept=".pdf,.docx"
-                    className="hidden"
+                    accept=".pdf"
+                    ref={resumeInputRef}
+
                   />
                 </label>
               </div>
@@ -111,10 +131,11 @@ const Home = () => {
                 </label>
 
                 <textarea
+                  className="w-full h-28 p-3 text-sm border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
                   name="selfDescription"
                   id="selfDescription"
                   placeholder="Briefly describe your experience, key skills, and years of experience..."
-                  className="w-full h-28 p-3 text-sm border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+                  onChange={(e) => setSelfDescription(e.target.value)}
                 />
               </div>
 
@@ -138,8 +159,9 @@ const Home = () => {
             </p>
 
             <button
-              type="button"
               className="w-full sm:w-auto px-7 py-3 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
+              type="button"
+              onClick={handleGenerateReport}
             >
               Generate My Interview Strategy
             </button>

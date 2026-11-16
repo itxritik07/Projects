@@ -47,7 +47,6 @@ localhost:3000/api/auth/logout
 - Backend (Node, Express)
 - Frontend (React + Vite)
 
-----------------------
 
 ### 4 Layers Architecture in Frontend:
 1. UI: designing part
@@ -79,7 +78,7 @@ localhost:3000/api/auth/logout
 - AuthContext
 
 ### Hooks
-- useAuth.js - (for managing services and context layer)
+- useAuth.js - (managing two layers: services and context layer)
 - handleRegister()
 - handleLogin()
 - handleLogout()
@@ -98,6 +97,50 @@ localhost:3000/api/auth/logout
 
 
 ### Note:
-- if we login ⇢ homepage
+- if we login, it redirects us to homepage
 - then reload it redirects to login page again
 - setLoading should be (true)
+
+# Main Feature (using AI Model Gemini) (Backend)
+### New Schema: interviewReportSchema
+- technicalQuestionSchema: [question, intention, answer]
+- behavioralQuestionSchema: [question, intention, answer]
+- skillGapSchema: [skill, severity]
+- preparationPlanSchema: [day, focus, tasks]
+
+- **interviewReportSchema**
+
+
+### Services
+- ai.service.js
+- **Google AI Studio**
+
+- for testing: 
+- tempSample.js file 
+- invokeGeminiAi(): [resume, selfDescription, jobDescription]
+
+- remember **Structure Outputs**
+1. Interaction API
+2. Generate Context Api ✅
+
+- The AI will generate the data in whatever structure you want.
+
+**zod and zod-to-json-schema pkg installation**
+
+- interviewReportSchema(): this schema is for AI in **Services**
+- generateInterviewReport(): [resume, selfDescription, jobDescription]
+
+- testing this function in **app.js**
+- then clean up **tempSample.js**
+
+### Generate API demands: 
+1. PDF of Resume
+2. Self Description in text format
+3. Job Description in text format
+- this **Generates the AI Interview Report**
+
+### Routes
+2. interview.routes.js
+- interviewRouter.post("/", authUser, generateInterviewReportController);
+
+### app.js

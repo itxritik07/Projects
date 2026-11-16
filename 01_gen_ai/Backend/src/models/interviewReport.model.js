@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const technicalQuestionSchema = new mongoose.Schema({
     question: {
         type: String,
@@ -16,6 +17,7 @@ const technicalQuestionSchema = new mongoose.Schema({
 }, {
     _id: false
 });
+
 
 const behavioralQuestionSchema = new mongoose.Schema({
     question: {
@@ -34,6 +36,7 @@ const behavioralQuestionSchema = new mongoose.Schema({
     _id: false
 });
 
+
 const skillGapSchema = new mongoose.Schema({
     skill: {
         type: String,
@@ -47,6 +50,7 @@ const skillGapSchema = new mongoose.Schema({
 }, {
     _id: false
 });
+
 
 const preparationPlanSchema = new mongoose.Schema({
     day: {
@@ -62,6 +66,8 @@ const preparationPlanSchema = new mongoose.Schema({
         required: [true, "Task is required"]
     }]
 });
+
+
 
 const interviewReportSchema = new mongoose.Schema({
     jobDescription: {

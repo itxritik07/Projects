@@ -12,7 +12,7 @@ export const useAuth = () => {
 
         try {
             const data = await register({ username, email, password });
-            setUser(data.user);
+            setUser(data.user); // user: postman API
         }
         catch (error) {
             // console.log(error);
