@@ -15,7 +15,7 @@ export const useAuth = () => {
             setUser(data.user); // user: postman API
         }
         catch (error) {
-            // console.log(error);
+            console.log(`handleRegister ${error}`);
         }
         finally {
             setLoading(false);
@@ -30,7 +30,7 @@ export const useAuth = () => {
             setUser(data.user);
         }
         catch (error) {
-
+            console.log(`handleLogin ${error}`);
         }
         finally {
             setLoading(false);
@@ -44,7 +44,7 @@ export const useAuth = () => {
             const data = await logout();
             setUser(null);
         } catch (error) {
-
+            console.log(`handleLogout ${error}`);
         }
         finally {
             setLoading(false);
@@ -58,14 +58,14 @@ export const useAuth = () => {
                 setUser(data.user)
             }
             catch (error) {
-
+                console.log(`getAndSetUser ${error}`);
             }
             finally {
                 setLoading(false)
             }
         };
 
-        getAndSetUser();``
+        getAndSetUser();
     }, []);
 
     return { user, loading, handleRegister, handleLogin, handleLogout };

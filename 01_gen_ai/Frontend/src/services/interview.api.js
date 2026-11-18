@@ -24,14 +24,12 @@ export const generateInterviewReport = async ({ jobDescription, selfDescription,
 
 
 export const getInterviewReportId = async ({ interviewId }) => {
-    const response = await api.post(`/api/interview/report/${interviewId}`);
-
+    const response = await api.get(`/api/interview/report/${interviewId}`);
     return response.data;
 };
 
 
 export const getAllInterviewReports = async () => {
     const response = await api.get("/api/interview");
-
     return response.data;
 };

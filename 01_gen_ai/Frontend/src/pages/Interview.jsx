@@ -95,7 +95,7 @@ const Interview = () => {
   // for re-hydration
   useEffect(() => {
     if (interviewId) {
-      getReportById(interviewId)
+      getReportById({interviewId})
     }
   }, [interviewId])
 

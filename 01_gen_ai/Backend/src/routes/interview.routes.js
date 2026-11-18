@@ -1,7 +1,7 @@
 import express from 'express';
 import { authUser } from '../middlewares/auth.middleware.js';
 import upload from '../middlewares/file.middleware.js';
-import { generateInterviewReportController, generateInterviewReportIdController, getAllInterviewReportsController } from '../controllers/interview.controller.js';
+import { generateInterviewReportController, getAllInterviewReportsController, getInterviewReportIdController } from '../controllers/interview.controller.js';
 
 const interviewRouter = express.Router();
 
@@ -9,7 +9,7 @@ const interviewRouter = express.Router();
 interviewRouter.post("/", authUser, upload.single("resume"), generateInterviewReportController);
 
 // get: /api/interview/report/:interviewId
-interviewRouter.get("/report/:interviewId", authUser, generateInterviewReportIdController);
+interviewRouter.get("/report/:interviewId", authUser, getInterviewReportIdController);
 
 // get: /api/interview
 interviewRouter.get("/", authUser, getAllInterviewReportsController);

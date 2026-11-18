@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { generateInterviewReport, getAllInterviewReports, getInterviewReportId } from "../services/interview.api.js";
-import { InterviewContext } from "../context/InterviewContext";
+import { InterviewContext } from "../context/InterviewContext.jsx";
 import { useParams } from 'react-router';
 
 
@@ -31,12 +31,12 @@ export const useInterview = () => {
     };
 
     const getReportById = async ({ interviewId }) => {
-        setLoading(true);
+        setLoading(true)
 
-        let response = null;
+        let response = null
         try {
             response = await getInterviewReportId({ interviewId })
-            setReport(response.interviewReports)
+            setReport(response.interviewReport)
         }
         catch (error) {
             console.log(`getReportById ${error}`)
@@ -44,7 +44,8 @@ export const useInterview = () => {
         finally {
             setLoading(false)
         }
-        return response.interviewReports;
+
+        return response.interviewReport
     };
 
     const getReports = async () => {
@@ -68,7 +69,7 @@ export const useInterview = () => {
     // for re-hydration
     useEffect(() => {
         if (interviewId) {
-            getReportById(interviewId)
+            getReportById({interviewId})
         }
         else {
             getReports()
@@ -76,4 +77,4 @@ export const useInterview = () => {
     }, [interviewId])
 
     return { loading, report, reports, generateReport, getReportById, getReports }
-};  
+};

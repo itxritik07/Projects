@@ -14,7 +14,8 @@ export const register = async ({ username, email, password }) => {
         });
 
         return response.data
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error)
     }
 };
@@ -28,7 +29,8 @@ export const login = async ({ email, password }) => {
         });
 
         return response.data
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error)
     }
 };
@@ -40,7 +42,8 @@ export const logout = async () => {
         const response = await api.post("/api/auth/logout");
 
         return response.data;
-    } catch (error) {
+    } 
+    catch (error) {
         
     }
 };
