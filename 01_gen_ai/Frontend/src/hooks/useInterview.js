@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { generateInterviewReport, getAllInterviewReports, getInterviewReportId } from "../services/interview.api.js";
+import { generateInterviewReport, generateResumePdf, getAllInterviewReports, getInterviewReportId } from "../services/interview.api.js";
 import { InterviewContext } from "../context/InterviewContext.jsx";
 import { useParams } from 'react-router';
 
@@ -9,9 +9,9 @@ export const useInterview = () => {
     if (!context) {
         throw new Error("useInterview must be used within an InterviewProvider")
     }
-
     const { interviewId } = useParams();
     const { loading, setLoading, report, setReport, reports, setReports } = context;
+
 
     const generateReport = async ({ selfDescription, jobDescription, resumeFile }) => {
         setLoading(true);
@@ -29,6 +29,7 @@ export const useInterview = () => {
         }
         return response.interviewReport
     };
+
 
     const getReportById = async ({ interviewId }) => {
         setLoading(true)
@@ -48,13 +49,14 @@ export const useInterview = () => {
         return response.interviewReport
     };
 
+
     const getReports = async () => {
         setLoading(true);
 
         let response = null;
         try {
             response = await getAllInterviewReports();
-            setReport(response.interviewReports);
+            setReports(response.interviewReports);
         }
         catch (error) {
             console.log(`getReports ${error}`)
@@ -66,15 +68,38 @@ export const useInterview = () => {
         return response.interviewReports;
     };
 
+
+    const getResumePdf = async (interviewReportId) => {
+        setLoading(true);
+
+        let response = null;
+        try {
+            response = await generateResumePdf({ interviewReportId })
+            const url = window.URL.createObjectURL(new Blob([response], { type: "application/pdf" }))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", `resume_${interviewReportId}.pdf`)
+            document.body.appendChild(link)
+            link.click()
+        }
+        catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false)
+        }
+    };
+
+
     // for re-hydration
     useEffect(() => {
         if (interviewId) {
-            getReportById({interviewId})
+            getReportById({ interviewId })
         }
         else {
             getReports()
         }
     }, [interviewId])
 
-    return { loading, report, reports, generateReport, getReportById, getReports }
+    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf }
 };
