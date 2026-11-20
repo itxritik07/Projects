@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router";
 import Loader from "../components/Loader.jsx";
 
 
-export const Login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -95,3 +95,5 @@ export const Login = () => {
     </main>
   )
 };
+
+export default Login;

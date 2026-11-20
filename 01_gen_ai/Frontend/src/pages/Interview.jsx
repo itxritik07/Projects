@@ -89,7 +89,7 @@ const RoadMapDay = ({ day }) => (
 
 
 // main component
-export const Interview = () => {
+const Interview = () => {
   const [activeNav, setActiveNav] = useState('technical');
   const { report, getReportById, loading, getResumePdf } = useInterview();
   const { interviewId } = useParams();
@@ -296,3 +296,5 @@ export const Interview = () => {
     </div>
   )
 };
+
+export default Interview;

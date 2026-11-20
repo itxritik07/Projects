@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { LogoutButton } from '../components/LogoutButton.jsx';
 
 
-export const Home = () => {
+const Home = () => {
   const { loading, generateReport, reports, setLoading } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
@@ -337,3 +337,5 @@ export const Home = () => {
     </main>
   )
 };
+
+export default Home;

@@ -18,7 +18,7 @@ export const register = async ({ username, email, password }) => {
         return response.data;
     }
     catch (error) {
-        console.log("register ", error)
+        console.log("register error:  ", error)
     }
 };
 
@@ -52,6 +52,7 @@ export const logout = async () => {
     }
 };
 
+
 /**
  * @description get the current logged in user details.
  */
@@ -61,6 +62,6 @@ export const getMe = async () => {
         return response.data;
     }
     catch (error) {
-        console.log("getMe ", error)
+        // console.log("getMe error:", error)
     }
 };

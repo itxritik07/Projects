@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth.js";
 import Loader from "../components/Loader.jsx";
 
 
-export const Register = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -115,3 +115,5 @@ export const Register = () => {
     </main>
   )
 };
+
+export default Register;

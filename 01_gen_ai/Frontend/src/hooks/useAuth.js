@@ -59,7 +59,7 @@ export const useAuth = () => {
                 setUser(data.user)
             }
             catch (error) {
-                console.log(`getAndSetUser error: ${error}`);
+                // console.log(`getAndSetUser error: ${error}`);
             }
             finally {
                 setLoading(false)
