@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import blacklistModel from "../models/blacklist.model.js";
 
-
-// post: /api/auth/register
+/**
+ * @description register a new user, expects username, email and password in the request body
+ * @access public
+ */
 export const registerUserController = async (req, res) => {
 
     // get username, email, password from req.body:
@@ -59,7 +61,10 @@ export const registerUserController = async (req, res) => {
 };
 
 
-// post: /api/auth/login
+/**
+ * @description login a user, expects email and password in the request body
+ * @access public
+ */
 export const loginUserController = async (req, res) => {
 
     // get email and password form req.body
@@ -105,7 +110,10 @@ export const loginUserController = async (req, res) => {
 };
 
 
-// post: /api/auth/logout
+/**
+ * @description clear token from user cookie and add the token in blacklist
+ * @access public
+ */
 export const logoutUserController = async (req, res) => {
 
     // get token first to blacklist:
@@ -122,7 +130,10 @@ export const logoutUserController = async (req, res) => {
 };
 
 
-// post: /api/auth/get-me (get the current logged in user details)
+/**
+ * @description get the current logged in user details.
+ * @access private
+ */
 export const getMeController = async (req, res) => {
     const user = await userModel.findById(req.user.id);
     

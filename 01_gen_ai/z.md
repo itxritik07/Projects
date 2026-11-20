@@ -144,3 +144,38 @@ localhost:3000/api/auth/logout
 - interviewRouter.post("/", authUser, generateInterviewReportController);
 
 ### app.js
+
+
+### homepage
+```
+{/* Recent reports list */}
+{/* {reports.length > 0 && (
+  <section className=''>
+  <h2>My Recent Interview Plans</h2>
+      <ul>
+        {reports.map((report) => (
+          <li
+            className=''
+            key={report._id}
+            onClick={() => navigate(`/interview/${report._id}`)}
+          >
+            <h3>{report.title || 'Untitled Position'}</h3>
+            <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
+           <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
+          </li>
+      ))}
+     </ul>
+  </section>
+)} */}
+```
+### backend services
+```
+test:
+export const invokeGeminiAi = async () => {
+    const response = await ai.models.generateContent({
+        model: "gemini-3.5-flash-lite",
+        contents: "Hello Gemini! Explain what is interview?"
+    });
+    console.log(response.text)
+}
+```

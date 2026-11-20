@@ -5,16 +5,32 @@ import { generateInterviewReportController, generateResumePdfController, getAllI
 
 const interviewRouter = express.Router();
 
-// post: /api/interview
+/**
+ * @route post: /api/interview/
+ * @description generate new interview report on the basis of user self description,resume pdf and job description.
+ * @access private
+ */
 interviewRouter.post("/", authUser, upload.single("resume"), generateInterviewReportController);
 
-// get: /api/interview/report/:interviewId
+/**
+ * @route get: /api/interview/report/:interviewId
+ * @description get interview report by interviewId.
+ * @access private
+ */
 interviewRouter.get("/report/:interviewId", authUser, getInterviewReportIdController);
 
-// get: /api/interview
+/**
+ * @route get: /api/interview/
+ * @description get all interview reports of logged in user.
+ * @access private
+ */
 interviewRouter.get("/", authUser, getAllInterviewReportsController);
 
-// post: /api/interview/resume/pdf
+/**
+ * @route get: /api/interview/resume/pdf
+ * @description generate resume pdf on the basis of user self description, resume content and job description.
+ * @access private
+ */
 interviewRouter.post("/resume/pdf/:interviewReportId", authUser, generateResumePdfController);
 
 

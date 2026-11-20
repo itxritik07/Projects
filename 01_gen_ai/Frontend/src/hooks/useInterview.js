@@ -22,14 +22,13 @@ export const useInterview = () => {
             setReport(response.interviewReport) // interviewReport: postman API
         }
         catch (error) {
-            console.log(`generateReport ${error}`)
+            console.log(`generateReport error: ${error}`)
         }
         finally {
             setLoading(false)
         }
         return response.interviewReport
     };
-
 
     const getReportById = async ({ interviewId }) => {
         setLoading(true)
@@ -40,7 +39,7 @@ export const useInterview = () => {
             setReport(response.interviewReport)
         }
         catch (error) {
-            console.log(`getReportById ${error}`)
+            console.log(`getReportById error: ${error}`)
         }
         finally {
             setLoading(false)
@@ -48,7 +47,6 @@ export const useInterview = () => {
 
         return response.interviewReport
     };
-
 
     const getReports = async () => {
         setLoading(true);
@@ -59,7 +57,7 @@ export const useInterview = () => {
             setReports(response.interviewReports);
         }
         catch (error) {
-            console.log(`getReports ${error}`)
+            console.log(`getReports error: ${error}`)
         }
         finally {
             setLoading(false)
@@ -67,7 +65,6 @@ export const useInterview = () => {
 
         return response.interviewReports;
     };
-
 
     const getResumePdf = async (interviewReportId) => {
         setLoading(true);
@@ -83,13 +80,12 @@ export const useInterview = () => {
             link.click()
         }
         catch (error) {
-            console.log(error)
+            console.log(`getResumePdf error: ${error}`)
         }
         finally {
             setLoading(false)
         }
     };
-
 
     // for re-hydration
     useEffect(() => {
@@ -101,5 +97,5 @@ export const useInterview = () => {
         }
     }, [interviewId])
 
-    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf }
+    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf, setLoading}
 };

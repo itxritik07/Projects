@@ -3,6 +3,7 @@ import { generateInterviewReport, generateResumePdf } from "../services/ai.servi
 import interviewReportModel from "../models/interviewReport.model.js";
 
 
+
 // post: api/interview
 // export const generateInterviewReportController = async (req, res) => {
 
@@ -31,16 +32,23 @@ import interviewReportModel from "../models/interviewReport.model.js";
 // };
 
 
-// Claude version
+/**
+ * @description controller to generate interview report based on user self description, resume and job description.
+ * Claude version
+*/
 export const generateInterviewReportController = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({ message: "Resume PDF is required" });
+            return res.status(400).json({
+                message: "Resume PDF is required"
+            });
         }
 
         const { selfDescription, jobDescription } = req.body;
         if (!selfDescription?.trim() || !jobDescription?.trim()) {
-            return res.status(400).json({ message: "selfDescription and jobDescription are required" });
+            return res.status(400).json({
+                message: "selfDescription and jobDescription are required"
+            });
         }
 
         const parser = new PDFParse({ data: req.file.buffer });
@@ -69,13 +77,19 @@ export const generateInterviewReportController = async (req, res) => {
             message: "Interview report generated successfully",
             interviewReport
         });
-    } catch (error) {
+    } 
+    catch (error) {
         console.error("generateInterviewReport error:", error);
-        res.status(500).json({ message: "Failed to generate interview report" });
+        res.status(500).json({
+            message: "Failed to generate interview report"
+        });
     }
 };
 
-// get: /api/interview/report/interviewId
+
+/**
+ * @description controller to get interview report by interviewId.
+ */
 export const getInterviewReportIdController = async (req, res) => {
     const { interviewId } = req.params;
 
@@ -96,7 +110,10 @@ export const getInterviewReportIdController = async (req, res) => {
     })
 };
 
-// get: /api/interview
+
+/** 
+ * @description controller to get all interview reports of logged in user.
+ */
 export const getAllInterviewReportsController = async (req, res) => {
     const interviewReports = await interviewReportModel.find({ user: req.user.id }).sort({ createdAt: -1 }).select("-resume -selfDescription -jobDescription -__v -technicalQuestions -behavioralQuestions -skillGaps -preparationPlan")
 
@@ -107,6 +124,9 @@ export const getAllInterviewReportsController = async (req, res) => {
 };
 
 
+/**
+ * @description controller to generate resume PDF based on user self description, resume and job description.
+ */
 export const generateResumePdfController = async (req, res) => {
     const { interviewReportId } = req.params;
 

@@ -1,10 +1,10 @@
-import "../App.css";
 import { useAuth } from "../hooks/useAuth.js"
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
+import Loader from "../components/Loader.jsx";
 
 
-const Login = () => {
+export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,11 +20,12 @@ const Login = () => {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gray-100">
         <h1 className="text-2xl font-semibold text-blue-600 animate-pulse">
-          Loading...
+          <Loader/>
         </h1>
       </main>
     );
   }
+
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -32,7 +33,6 @@ const Login = () => {
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Login</h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* email */}
           <div className="flex flex-col gap-2">
             <label
@@ -78,7 +78,6 @@ const Login = () => {
           >
             Login
           </button>
-
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-6">
@@ -96,5 +95,3 @@ const Login = () => {
     </main>
   )
 };
-
-export default Login;

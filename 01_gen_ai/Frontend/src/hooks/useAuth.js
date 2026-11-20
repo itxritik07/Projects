@@ -7,6 +7,7 @@ export const useAuth = () => {
     const context = useContext(AuthContext);
     const { user, setUser, loading, setLoading } = context;
 
+
     const handleRegister = async ({ username, email, password }) => {
         setLoading(true);
 
@@ -15,7 +16,7 @@ export const useAuth = () => {
             setUser(data.user); // user: postman API
         }
         catch (error) {
-            console.log(`handleRegister ${error}`);
+            console.log(`handleRegister error: ${error}`);
         }
         finally {
             setLoading(false);
@@ -30,7 +31,7 @@ export const useAuth = () => {
             setUser(data.user);
         }
         catch (error) {
-            console.log(`handleLogin ${error}`);
+            console.log(`handleLogin error: ${error}`);
         }
         finally {
             setLoading(false);
@@ -44,7 +45,7 @@ export const useAuth = () => {
             const data = await logout();
             setUser(null);
         } catch (error) {
-            console.log(`handleLogout ${error}`);
+            console.log(`handleLogout error: ${error}`);
         }
         finally {
             setLoading(false);
@@ -58,7 +59,7 @@ export const useAuth = () => {
                 setUser(data.user)
             }
             catch (error) {
-                console.log(`getAndSetUser ${error}`);
+                console.log(`getAndSetUser error: ${error}`);
             }
             finally {
                 setLoading(false)

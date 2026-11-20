@@ -1,20 +1,33 @@
 import { useRef, useState } from 'react';
 import { useInterview } from '../hooks/useInterview.js';
 import { useNavigate } from 'react-router';
+import { LogoutButton } from '../components/LogoutButton.jsx';
 
 
-const Home = () => {
-  const { loading, generateReport, reports } = useInterview();
-  console.log("reports: ", reports)
+export const Home = () => {
+  const { loading, generateReport, reports, setLoading } = useInterview();
   const [jobDescription, setJobDescription] = useState("");
   const [selfDescription, setSelfDescription] = useState("");
   const resumeInputRef = useRef();
   const navigate = useNavigate();
 
   const handleGenerateReport = async () => {
-    const resumeFile = resumeInputRef.current.files[0]
-    const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-    navigate(`/interview/${data._id}`)
+    setLoading(true);
+
+    try {
+      const resumeFile = resumeInputRef.current?.files?.[0];
+      const data = await generateReport({ jobDescription, selfDescription, resumeFile });
+
+      if (data?._id) {
+        navigate(`/interview/${data._id}`);
+      }
+    }
+    catch (error) {
+      console.error(`handleGenerateReport error: ${error}`);
+    }
+    finally {
+      setLoading(false);
+    }
   };
 
 
@@ -22,22 +35,30 @@ const Home = () => {
     <main className="min-h-screen bg-gray-100 px-4 py-3 md:px-6 md:py-4">
 
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
-            Create Your Custom Interview Plan
-          </h1>
 
-          <p className="text-xs md:text-sm text-gray-500 max-w-xl mx-auto">
-            Let our AI analyze the job requirements and your unique profile
-            to build a winning strategy.
-          </p>
+        {/* Header */}
+        <div className="relative mb-5">
+          {/* Logout Button */}
+          <div className="items-center flex justify-end mb-3">
+            <LogoutButton />
+          </div>
+
+          {/* Page Heading */}
+          <div className="text-center">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
+              Create Your Custom Interview Plan
+            </h1>
+            {/* para */}
+            <p className="text-xs md:text-sm text-gray-500 max-w-xl mx-auto">
+              Let our AI analyze the job requirements and your unique profile
+              to build a winning strategy.
+            </p>
+          </div>
         </div>
 
         {/* Main Form */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 p-5">
-
             {/* Left Section */}
             <div>
               <div className="flex items-center justify-between mb-3">
@@ -70,7 +91,6 @@ const Home = () => {
 
             {/* Right Section */}
             <div className="space-y-4">
-
               <h2 className="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2">
                 Your Profile
               </h2>
@@ -110,7 +130,6 @@ const Home = () => {
                     id="resume"
                     accept=".pdf"
                     ref={resumeInputRef}
-
                   />
                 </label>
               </div>
@@ -148,7 +167,6 @@ const Home = () => {
                   personalized interview plan.
                 </p>
               </div>
-
             </div>
           </div>
 
@@ -159,39 +177,56 @@ const Home = () => {
               AI-Powered Strategy Generation • Approx 30s
             </p>
 
-            <button
+            {/* <button
               className="w-full sm:w-auto px-7 py-3 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all duration-200 ease-in-out cursor-pointer"
               type="button"
               onClick={handleGenerateReport}
             >
               Generate My Interview Strategy
+            </button> */}
+
+            <button
+              className={`w-full sm:w-auto px-7 py-3 bg-black text-white rounded-4xl text-sm font-semibold transition-all duration-200 ease-in-out flex items-center justify-center gap-2 ${loading
+                ? "opacity-75 cursor-not-allowed"
+                : "hover:bg-gray-700-700 active:scale-95 cursor-pointer"
+                }`}
+              type="button"
+              onClick={handleGenerateReport}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  <span>Generating...</span>
+                </>
+              ) : (
+                "Generate My Interview Strategy"
+              )}
             </button>
 
           </div>
         </div>
+
       </div>
-
-      {/* Recent reports list */}
-      {/* {reports.length > 0 && (
-        <section className=''>
-          <h2>My Recent Interview Plans</h2>
-          <ul>
-            {reports.map((report) => (
-              <li
-                className=''
-                key={report._id}
-                onClick={() => navigate(`/interview/${report._id}`)}
-              >
-                <h3>{report.title || 'Untitled Position'}</h3>
-                <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
-                <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )} */}
-
-
 
       {/* Recent reports list */}
       {reports.length > 0 && (
@@ -297,12 +332,8 @@ const Home = () => {
 
           </ul>
         </section>
-      )
-      }
-
+      )}
 
     </main>
   )
 };
-
-export default Home;

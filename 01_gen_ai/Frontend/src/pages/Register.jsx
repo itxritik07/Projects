@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../hooks/useAuth.js";
+import Loader from "../components/Loader.jsx";
 
 
-const Register = () => {
+export const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const { loading, handleRegister } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -21,7 +21,7 @@ const Register = () => {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gray-100">
         <h1 className="text-2xl font-semibold text-blue-600 animate-pulse">
-          Loading...
+          <Loader />
         </h1>
       </main>
     );
@@ -34,7 +34,6 @@ const Register = () => {
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Register</h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* username */}
           <div className="flex flex-col gap-2">
             <label
@@ -116,5 +115,3 @@ const Register = () => {
     </main>
   )
 };
-
-export default Register;

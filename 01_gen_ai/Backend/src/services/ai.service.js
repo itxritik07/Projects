@@ -8,14 +8,6 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
 });
 
-// test:
-// export const invokeGeminiAi = async () => {
-//     const response = await ai.models.generateContent({
-//         model: "gemini-3.5-flash-lite",
-//         contents: "Hello Gemini! Explain what is interview?"
-//     });
-//     console.log(response.text)
-// }
 
 // This schema is for ai
 const interviewReportSchema = z.object({
@@ -119,8 +111,6 @@ export const generateResumePdf = async ({ resume, selfDescription, jobDescriptio
     });
 
     const jsonContent = JSON.parse(response.text);
-
     const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
-
-    return pdfBuffer
+    return pdfBuffer;
 };

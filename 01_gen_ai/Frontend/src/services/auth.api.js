@@ -6,57 +6,61 @@ const api = axios.create({
     withCredentials: true
 });
 
-// registerUserController()
+
+/**
+ * @description register a new user, expects username, email and password in the request body
+ */
 export const register = async ({ username, email, password }) => {
     try {
         const response = await api.post("/api/auth/register", {
             username, email, password
         });
-
-        return response.data
-    } 
+        return response.data;
+    }
     catch (error) {
-        console.log(error)
+        console.log("register ", error)
     }
 };
 
 
-// loginUserController()
+/**
+ * @description login a user, expects email and password in the request body
+ */
 export const login = async ({ email, password }) => {
     try {
         const response = await api.post("/api/auth/login", {
             email, password
         });
-
-        return response.data
-    } 
+        return response.data;
+    }
     catch (error) {
-        console.log(error)
+        console.log("login ", error)
     }
 };
 
 
-// logoutUserController()
+/**
+ * @description clear token from user cookie and add the token in blacklist
+ */
 export const logout = async () => {
     try {
         const response = await api.post("/api/auth/logout");
-
         return response.data;
-    } 
+    }
     catch (error) {
-        
+        console.log("logout ", error)
     }
 };
 
-
-// getMeController()
+/**
+ * @description get the current logged in user details.
+ */
 export const getMe = async () => {
     try {
         const response = await api.get("/api/auth/get-me");
-
         return response.data;
     }
     catch (error) {
-        console.log(error)
+        console.log("getMe ", error)
     }
 };
